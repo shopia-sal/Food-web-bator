@@ -1,0 +1,86 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+
+.font-cinzel {
+  font-family: 'Cinzel', serif;
+}
+
+.font-cursive {
+  font-family: 'Dancing Script', cursive;
+}
+
+/* Feature Cards */
+.feature-card {
+  background: #1f1a17;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(251,191,36,0.4);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+/* CTA Button */
+.cta-btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border-radius: 9999px;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  background: linear-gradient(to right, #fef9c3, #facc15, #d97706);
+  color: #1c1612;
+  box-shadow: 0 4px 15px rgba(251,191,36,0.3);
+  transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+  background: linear-gradient(to right, #fde047, #f59e0b);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(251,191,36,0.4);
+}
+
+
+.font-cursive {
+    font-family: 'Dancing Script', cursive;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+
+    25% {
+        transform:translateY(-20px) translateX(10px);
+    }
+
+    50% {
+        transform: translateY(10px) translateX(-10px);
+    }
+
+    75% {
+        transform: translateY(-10px) translateX(-5px);
+    }
+}
+
+.border-glow{
+    box-shadow:  0 0 25px rgba(245, 158, 11, 0.3);
+}
+
+.shadow-3d{
+    box-shadow: 8px 8px 25px rgba(0,0,0,0.3),
+    -4px -4px 15px rgba(255,255,255,0.05);
+}
+
+.font-serif{
+    font-family: ui-serif, Georgia, Cambria 'Times New Roman', Times, serif;
+}
