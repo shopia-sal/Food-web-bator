@@ -51,11 +51,12 @@ const AddItems = () => {
             payload.append(key, val)
         });
 
-        const res = await axios.post(
-            'http://localhost:4000/api/items',
-            payload,
-            {headers: {'Content-Type': 'multipart/form-data'}}
-        );
+const res = await axios.post(
+    `${process.env.REACT_APP_API_URL}/api/items`,
+    payload,
+    { headers: { 'Content-Type': 'multipart/form-data' } }
+);
+
         setFormData({
             name: '',
             description: '',
