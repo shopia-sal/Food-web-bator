@@ -1,5 +1,5 @@
 import React from 'react'
-import Navbar from '../../components/Navbar/navbar'
+import Navbar from '../../components/Navbar/Navbar'
 import PaymentInstructions from '../../components/PaymentInstructions.jsx/PaymentInstructions'
 import Footer from '../../components/Footer/Footer'
 

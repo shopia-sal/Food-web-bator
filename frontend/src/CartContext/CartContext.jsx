@@ -64,11 +64,12 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem("authToken");
     if (!token) return;
 
-    axios
-      .get("http://localhost:4000/api/cart", {
-        withCredentials: true,
-        headers: { Authorization: `Bearer ${token}` },
-      })
+axios
+  .get(`${process.env.REACT_APP_API_URL}/api/cart`, {
+    withCredentials: true,
+    headers: { Authorization: `Bearer ${token}` },
+  })
+
       .then((res) => dispatch({ type: "HYDRATE_CART", payload: res.data }))
       .catch((err) => {
         if (err.response?.status !== 401) console.error("Error fetching cart:", err);
@@ -79,14 +80,12 @@ export const CartProvider = ({ children }) => {
   const addToCart = useCallback(async (item, qty) => {
     try {
       const token = localStorage.getItem("authToken");
-      const res = await axios.post(
-        "http://localhost:4000/api/cart",
-        { itemId: item._id, quantity: qty },
-        {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+const res = await axios.post(
+  `${process.env.REACT_APP_API_URL}/api/cart`,
+  { itemId: item._id, quantity: qty },
+  { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+);
+
       dispatch({ type: "ADD_ITEM", payload: res.data });
     } catch (error) {
       console.error("Add to cart failed:", error);
@@ -97,10 +96,11 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = useCallback(async (_id) => {
     try {
       const token = localStorage.getItem("authToken");
-      await axios.delete(`http://localhost:4000/api/cart/${_id}`, {
-        withCredentials: true,
-        headers: { Authorization: `Bearer ${token}` },
-      });
+await axios.delete(`${process.env.REACT_APP_API_URL}/api/cart/${_id}`, {
+  withCredentials: true,
+  headers: { Authorization: `Bearer ${token}` },
+});
+
       dispatch({ type: "REMOVE_ITEM", payload: _id });
     } catch (error) {
       console.error("Remove from cart failed:", error);
@@ -111,14 +111,12 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = useCallback(async (_id, qty) => {
     try {
       const token = localStorage.getItem("authToken");
-      const res = await axios.put(
-        `http://localhost:4000/api/cart/${_id}`,
-        { quantity: qty },
-        {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+const res = await axios.put(
+  `${process.env.REACT_APP_API_URL}/api/cart/${_id}`,
+  { quantity: qty },
+  { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+);
+
       dispatch({ type: "UPDATE_ITEM", payload: res.data });
     } catch (error) {
       console.error("Update quantity failed:", error);
@@ -129,14 +127,12 @@ export const CartProvider = ({ children }) => {
   const clearCart = useCallback(async () => {
     try {
       const token = localStorage.getItem("authToken");
-      await axios.post(
-        "http://localhost:4000/api/cart/clear",
-        {},
-        {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+await axios.post(
+  `${process.env.REACT_APP_API_URL}/api/cart/clear`,
+  {},
+  { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
+);
+
       dispatch({ type: "CLEAR_CART" });
     } catch (error) {
       console.error("Clear cart failed:", error);
