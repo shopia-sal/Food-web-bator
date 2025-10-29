@@ -14,8 +14,8 @@ const OurHomeMenu = () => {
   const [menuData, setMenuData] = useState({})
 
   useEffect(() => {
-    axios
-      .get('http://localhost:4000/api/items')
+axios.get(`${process.env.REACT_APP_API_URL}/api/items`)
+
       .then((res) => {
         const grouped = res.data.reduce((acc, item) => {
           acc[item.category] = acc[item.category] || []
@@ -79,9 +79,7 @@ const OurHomeMenu = () => {
     className="absolute -top-14 flex items-center justify-center w-28 h-28 rounded-full bg-gradient-to-b from-[#C79A2B] to-[#B38600] p-[3px]"
   >
     <div className="rounded-full bg-[#1E1916] w-full h-full flex items-center justify-center overflow-hidden">
-      <img
-        src={item.imageUrl}
-        alt={item.name}
+<img src={`${process.env.REACT_APP_API_URL}${item.imageUrl}`} alt={item.name} 
         className="w-[100px] h-[100px] object-cover rounded-full"
       />
     </div>
