@@ -7,7 +7,7 @@ WORKDIR /app
 # Salin semua file project
 COPY . .
 
-# Masuk ke folder backend dan install dependencies
+# Install dependencies backend
 RUN npm install --prefix backend
 
 # Jalankan backend
