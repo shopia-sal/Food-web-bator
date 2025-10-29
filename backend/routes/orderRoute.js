@@ -11,8 +11,9 @@ orderRouter.use(authMiddleware);
 
 orderRouter.post("/", createOrder);
 orderRouter.get('/', getOrders);
-orderRouter.get('/confirm', confirmPayment);
+orderRouter.get('/confirm', confirmPayment); 
 orderRouter.get('/:id', getOrderById);
 orderRouter.put('/:id', updateOrder);
+
 
 export default orderRouter

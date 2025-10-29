@@ -28,7 +28,7 @@ const orderSchema = new mongoose.Schema({
     paymentMethod: {
         type: String,
         required: true,
-        enum: ['cod', 'online', 'card', 'e-wallet', 'gopay', 'dana', 'ovo'], // ✅ ditambahin
+        enum: ['cod', 'online'],
         index: true
     },
     
