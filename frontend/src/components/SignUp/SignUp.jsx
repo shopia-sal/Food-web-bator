@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { FaArrowLeft, FaCheckCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 
-const url = 'http://localhost:4000'
 
 const AwesomeToast = ({message, icon}) => (
     <div className="animate-slide-in fixed bottom-6 right-6 flex  items-center bg-gradient-to-br from-amber-500 to-amber-600
@@ -41,15 +40,16 @@ const SignUp = () => {
             const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/register`, formData)
             console.log('Register Response: ', res.data)
 
-            if(res.data.success && res.data.token){
-                localStorage.setItem('authToken', res.data.token)
-                setShowToast({
-                    visible: true,
-                    message: 'Sign Up Successful!',
-                    icon: <FaCheckCircle/>
-                })
-                return
-            }
+if(res.data.success && res.data.token){
+    localStorage.setItem('authToken', res.data.token)
+    setShowToast({
+        visible: true,
+        message: 'Sign Up Successful!',
+        icon: <FaCheckCircle/>
+    })
+    return
+}
+
             throw new Error(res.data.message || 'Registration Failed');
         }
         catch (err){
@@ -63,7 +63,7 @@ const SignUp = () => {
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-[#1a120b] p-4'>
-        {showToast && <AwesomeToast message="Sign Up Succesful" icon={<FaCheckCircle/>}/>}
+{showToast.visible && <AwesomeToast message={showToast.message} icon={showToast.icon}/>}
 
         <div className="w-full max-w-md bg-gradient-to-br from-[#2D1B0E] to-[#4a372a] p-8 rounded-xl shadow-lg
         border-4 border-amber-700/30 transform transition-all duration-300 hover:shadow-2xl">
