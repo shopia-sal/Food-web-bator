@@ -160,9 +160,6 @@ try {
   <option value="">Pilih Metode</option>
   <option value="cod">Cash on Delivery (COD)</option>
   <option value="online">Kartu / Online Payment</option>
-  <option value="gopay">GoPay</option>
-  <option value="ovo">OVO</option>
-  <option value="dana">DANA</option>
 </select>
 
                         </div>

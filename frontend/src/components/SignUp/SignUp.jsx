@@ -24,7 +24,7 @@ const SignUp = () => {
     useEffect(() => {
         if(showToast.visible && showToast.message === 'Sign Up Successful!'){
             const timer = setTimeout(() => {
-                setShowToast({visible: true, message: '', icon: null})
+                setShowToast({visible: false, message: '', icon: null})
                 navigate('/login');
             }, 2000)
             return () => clearTimeout(timer)
@@ -38,7 +38,7 @@ const SignUp = () => {
         e.preventDefault();
         console.log('Sign up fired:', formData)
         try {
-            const res = await axios.post(`${url}/api/user/register`, formData)
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/register`, formData)
             console.log('Register Response: ', res.data)
 
             if(res.data.success && res.data.token){

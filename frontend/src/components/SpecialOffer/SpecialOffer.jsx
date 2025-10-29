@@ -26,7 +26,7 @@ const SpecialOffer = () => {
 
   // fetch menu
   useEffect(() => {
-    axios.get('http://localhost:4000/api/items')
+    axios.get(`${process.env.REACT_APP_API_URL}/api/items`)
       .then(res => setItems(res.data.items ?? res.data))
       .catch(err => console.error(err));
   }, [])

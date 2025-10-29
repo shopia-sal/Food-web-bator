@@ -8,17 +8,19 @@ const Order = () => {
     const [orders, setOrders] = useState([])
     const [loading, setLoading] = useState(true)
     const [ error, setError] = useState(null)
+    
+    const baseURL = process.env.REACT_APP_API_URL;
 
     
     useEffect(() => {
     const fetchOrders = async () => {
         try {
-        const response = await axios.get(
-            'http://localhost:4000/api/orders/getall',
-            {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-            }
-        );
+
+
+const response = await axios.get(`${baseURL}/api/orders/getall`, {
+  headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+});
+
 
         const formatted = response.data.map(order => ({
             ...order,
@@ -47,8 +49,7 @@ const Order = () => {
 
     const handleStatusChange = async (orderId, newStatus) => {
         try {
-            await axios.put(`http://localhost:4000/api/orders/getall/${orderId}`, 
-                {status: newStatus});
+await axios.put(`${baseURL}/api/orders/getall/${orderId}`, { status: newStatus });
                 setOrders(orders.map(o => o._id === orderId ? {...o, status: newStatus} : o))
         }
         catch (err) {
@@ -131,7 +132,7 @@ const Order = () => {
                                             <div className="space-y-1 max-h-52 overflow-auto">
                                                 {order.items.map((itm, idx) => (
                                                     <div key={idx} className="flex items-center gap-3 p-2 rounded-lg">
-                                                        <img src={`http://localhost:4000${itm.item.imageUrl}`} 
+                                                        <img src={`${baseURL}${itm.item.imageUrl}`}
                                                         alt={itm.item.name} className='w-10 h-10 object-cover
                                                         rounded-lg' />
                                                         
