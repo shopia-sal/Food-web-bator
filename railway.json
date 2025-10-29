@@ -2,7 +2,11 @@
   "build": {
     "builder": "NIXPACKS",
     "nixpacksPlan": {
-      "providers": ["nodejs"]
+      "phases": {
+        "setup": {
+          "nixPkgs": ["nodejs_18"]
+        }
+      }
     },
     "buildCommand": "cd backend && npm install"
   },
