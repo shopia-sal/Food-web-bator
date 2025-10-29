@@ -32,9 +32,10 @@ const Checkout = () => {
             setLoading(true);
 
             if(paymentStatus === 'success' && sessionId){
-                axios.post('http://localhost:4000/api/orders/confirm', 
-                    {sessionId},
-                    {headers: authHeaders})
+axios.post(`${process.env.REACT_APP_API_URL}/api/orders/confirm`, 
+    {sessionId},
+    {headers: authHeaders})
+
                     .then(({data}) => {{
                         clearCart();
                         navigate('/myorder', {state: {order: data.order}})
@@ -79,11 +80,12 @@ const Checkout = () => {
             }))
         };
 try {
-    let { data } = await axios.post(
-      "http://localhost:4000/api/orders",
-      payload,
-      { headers: authHeaders }
-    );
+let { data } = await axios.post(
+  `${process.env.REACT_APP_API_URL}/api/orders`,
+  payload,
+  { headers: authHeaders }
+);
+
 
     if (formData.paymentMethod === "cod") {
       clearCart();
@@ -160,9 +162,6 @@ try {
   <option value="">Pilih Metode</option>
   <option value="cod">Cash on Delivery (COD)</option>
   <option value="online">Kartu / Online Payment</option>
-  <option value="gopay">GoPay</option>
-  <option value="ovo">OVO</option>
-  <option value="dana">DANA</option>
 </select>
 
                         </div>
