@@ -4,7 +4,6 @@ import { iconClass, inputBase } from '../assets/dummydata';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-const url = 'http://localhost:4000';
 
 const Login = ({ onLoginSuccess, onClose }) => {
   const [showToast, setShowToast] = useState({ visible: false, message: '', isError: false });
@@ -19,10 +18,11 @@ const Login = ({ onLoginSuccess, onClose }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${url}/api/user/login`, {
-        email: formData.email,
-        password: formData.password,
-      });
+const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/user/login`, {
+  email: formData.email,
+  password: formData.password,
+});
+
 
       console.log('Axios Res:', res);
 
