@@ -16,7 +16,8 @@ const MyOrder = () => {
     useEffect(() => {
         const fetchOrders = async () =>{
             try{
-                const response = await axios.get('http://localhost:4000/api/orders', {
+                const API_URL = process.env.REACT_APP_API_URL; 
+                const response = await axios.get(`${API_URL}/api/orders`, {
                     params: {email: user?.email},
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('authToken')}`
@@ -208,7 +209,7 @@ const getPaymentMethodDetails = (method) => {
                                                     {order.items.map((item, index) => (
                                                         <div key={`${order._id}-${index}`} 
                                                         className=" flex items-center gap-3 p-2 bg-[#3a2b2b]/50 rounded-lg">
-                                                            <img src={`http://localhost:4000${item.item.imageUrl}`} alt={item.item.name}
+                                                            <img src={`${API_URL}${item.item.imageUrl}`} alt={item.item.name}
                                                             className=' w-10 h-10 object-cover rounded-lg' />
 
                                                             <div className=" flex-1">
