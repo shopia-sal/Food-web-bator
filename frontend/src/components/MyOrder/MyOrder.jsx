@@ -3,20 +3,21 @@ import React, { useEffect, useState } from 'react'
 import { FiArrowLeft, FiBox, FiCheckCircle, FiClock, FiMap, FiMapPin, FiTruck, FiUser } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const MyOrder = () => {
 
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null)
 
-    const user =JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
 
     // fetch orders for user
 
     useEffect(() => {
-        const fetchOrders = async () =>{
-            try{
-                const API_URL = process.env.REACT_APP_API_URL; 
+        const fetchOrders = async () => {
+            try {
                 const response = await axios.get(`${API_URL}/api/orders`, {
                     params: {email: user?.email},
                     headers: {
