@@ -32,10 +32,9 @@ const Checkout = () => {
             setLoading(true);
 
             if(paymentStatus === 'success' && sessionId){
-axios.post(`${process.env.REACT_APP_API_URL}/api/orders/confirm`, 
-    {sessionId},
-    {headers: authHeaders})
-
+                axios.post(`${import.meta.env.VITE_API_URL}/api/orders/confirm`, 
+                    {sessionId},
+                    {headers: authHeaders})
                     .then(({data}) => {{
                         clearCart();
                         navigate('/myorder', {state: {order: data.order}})
@@ -79,105 +78,104 @@ axios.post(`${process.env.REACT_APP_API_URL}/api/orders/confirm`,
                 imageUrl: item.imageUrl || ''
             }))
         };
-try {
-let { data } = await axios.post(
-  `${process.env.REACT_APP_API_URL}/api/orders`,
-  payload,
-  { headers: authHeaders }
-);
 
+        try {
+            let { data } = await axios.post(
+                `${import.meta.env.VITE_API_URL}/api/orders`,
+                payload,
+                { headers: authHeaders }
+            );
 
-    if (formData.paymentMethod === "cod") {
-      clearCart();
-      navigate("/myorder", { state: { order: data.order } });
-    } else if (["gopay", "ovo", "dana"].includes(formData.paymentMethod)) {
-      // simpan order pending
-      clearCart();
-      navigate("/payment-instructions", { state: { order: data.order, method: formData.paymentMethod } });
-    } else {
-      // online card payment
-      window.location.href = data.checkoutUrl;
-    }
-  } catch (err) {
-    console.error("Order submission error: ", err);
-    setError(err.response?.data?.message || "Failed to submit order");
-  } finally {
-    setLoading(false);
-  }
-};
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-[#1a1212] to-[#2a1e1e] text-white py-16 px-4">
-        <div className="mx-auto max-w-4xl">
-            <Link className=' flex items-center gap-2 text-amber-400 mb-8' to='/cart'>
-                <FaArrowLeft/> Balik ke Keranjang
-            </Link>
-            <h1 className=" text-4xl font-bold text-center mb-8">
-                Checkout
-            </h1>
-            <form className="grid lg:grid-cols-2 gap-12" onSubmit={handleSubmit}>
-                    < div className = "bg-[#4b3b3b]/80 p-6 rounded-3xl space-y-6" >
-                        <h2 className="text-2xl font-bold">Personal Information</h2>
-                        <Input label="First Name" name="firstName" value={formData.firstName} onChange={handleInputChange} />
-                        <Input label="Last Name" name="lastName" value={formData.lastName} onChange={handleInputChange} />
-                        <Input label="Phone" name="phone" value={formData.phone} onChange={handleInputChange} />
-                        <Input label="Email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
-                        <Input label="Address" name="address" value={formData.address} onChange={handleInputChange} />
-                        <Input label="City" name="city" value={formData.city} onChange={handleInputChange} />
-                        <Input label="Zip Code" name="zipCode" value={formData.zipCode} onChange={handleInputChange} />
-                    </div >
+            if (formData.paymentMethod === "cod") {
+                clearCart();
+                navigate("/myorder", { state: { order: data.order } });
+            } else if (["gopay", "ovo", "dana"].includes(formData.paymentMethod)) {
+                // simpan order pending
+                clearCart();
+                navigate("/payment-instructions", { state: { order: data.order, method: formData.paymentMethod } });
+            } else {
+                // online card payment
+                window.location.href = data.checkoutUrl;
+            }
+        } catch (err) {
+            console.error("Order submission error: ", err);
+            setError(err.response?.data?.message || "Failed to submit order");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-                    {/* payment details */}
-                    <div className=" bg-[#4b3b3b]/80 p-6 rounded-3xl space-y-6">
-                        <h2 className=" text-2xl font-bold"> Detail Pembayaran</h2>
+    return (
+        <div className="min-h-screen bg-gradient-to-b from-[#1a1212] to-[#2a1e1e] text-white py-16 px-4">
+            <div className="mx-auto max-w-4xl">
+                <Link className=' flex items-center gap-2 text-amber-400 mb-8' to='/cart'>
+                    <FaArrowLeft/> Balik ke Keranjang
+                </Link>
+                <h1 className=" text-4xl font-bold text-center mb-8">
+                    Checkout
+                </h1>
+                <form className="grid lg:grid-cols-2 gap-12" onSubmit={handleSubmit}>
+                        < div className = "bg-[#4b3b3b]/80 p-6 rounded-3xl space-y-6" >
+                            <h2 className="text-2xl font-bold">Personal Information</h2>
+                            <Input label="First Name" name="firstName" value={formData.firstName} onChange={handleInputChange} />
+                            <Input label="Last Name" name="lastName" value={formData.lastName} onChange={handleInputChange} />
+                            <Input label="Phone" name="phone" value={formData.phone} onChange={handleInputChange} />
+                            <Input label="Email" name="email" type="email" value={formData.email} onChange={handleInputChange} />
+                            <Input label="Address" name="address" value={formData.address} onChange={handleInputChange} />
+                            <Input label="City" name="city" value={formData.city} onChange={handleInputChange} />
+                            <Input label="Zip Code" name="zipCode" value={formData.zipCode} onChange={handleInputChange} />
+                        </div >
 
-                        {/* order items */}
-                        <div className="space-y-4 mb-6">
-                            <h3 className=" text-lg font-semibold text-amber-100 ">Rincian Pesanan</h3>
+                        {/* payment details */}
+                        <div className=" bg-[#4b3b3b]/80 p-6 rounded-3xl space-y-6">
+                            <h2 className=" text-2xl font-bold"> Detail Pembayaran</h2>
 
-                            {cartItems.map(({_id, item, quantity}) => (
-                                <div key={_id} className=" flex justify-between items-center bg-[#3a2b2b] p-3 rounded-lg">
-                                    <div className="flex-1">
-                                        <span className=" text-amber-100">{item.name}</span>
-                                        <span className=" ml-2 text-amber-500/80 text-sm">x{quantity}</span>
+                            {/* order items */}
+                            <div className="space-y-4 mb-6">
+                                <h3 className=" text-lg font-semibold text-amber-100 ">Rincian Pesanan</h3>
+
+                                {cartItems.map(({_id, item, quantity}) => (
+                                    <div key={_id} className=" flex justify-between items-center bg-[#3a2b2b] p-3 rounded-lg">
+                                        <div className="flex-1">
+                                            <span className=" text-amber-100">{item.name}</span>
+                                            <span className=" ml-2 text-amber-500/80 text-sm">x{quantity}</span>
+                                        </div>
+                                        <span className=" text-amber-300">
+                                            Rp{(item.price * quantity).toFixed()}
+                                        </span>
                                     </div>
-                                    <span className=" text-amber-300">
-                                        Rp{(item.price * quantity).toFixed()}
-                                    </span>
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+
+                            <PaymentSummary totalAmount={totalAmount}/>
+
+                            {/* payment method */}
+                            <div className="">
+                                <label className="block mb-2"> Metode Pembayaran </label>
+                                <select 
+                                    name="paymentMethod" 
+                                    value={formData.paymentMethod} 
+                                    onChange={handleInputChange} 
+                                    required 
+                                    className="w-full bg-[#3a2b2b]/50 rounded-xl px-4 py-3"
+                                >
+                                    <option value="">Pilih Metode</option>
+                                    <option value="cod">Cash on Delivery (COD)</option>
+                                    <option value="online">Kartu / Online Payment</option>
+                                </select>
+                            </div>
+
+                            {error && <p className='text-red-400 mt-2'>{error}</p>}
+
+                            <button type='submit' disabled={loading} className="w-full bg-gradient-to-r from-red-600 to-amber-600 py-4
+                            rounded-xl font-bold flex justify-center items-center">
+                                <FaLock className='mr-2' /> {loading ? 'Processing...' : 'Complete Order'} 
+                            </button>
                         </div>
-
-                        <PaymentSummary totalAmount={totalAmount}/>
-
-                        {/* payment method */}
-                        <div className="">
-                            <label className="block mb-2"> Metode Pembayaran </label>
-<select 
-  name="paymentMethod" 
-  value={formData.paymentMethod} 
-  onChange={handleInputChange} 
-  required 
-  className="w-full bg-[#3a2b2b]/50 rounded-xl px-4 py-3"
->
-  <option value="">Pilih Metode</option>
-  <option value="cod">Cash on Delivery (COD)</option>
-  <option value="online">Kartu / Online Payment</option>
-</select>
-
-                        </div>
-
-                        {error && <p className='text-red-400 mt-2'>{error}</p>}
-
-                        <button type='submit' disabled={loading} className="w-full bg-gradient-to-r from-red-600 to-amber-600 py-4
-                        rounded-xl font-bold flex justify-center items-center">
-                            <FaLock className='mr-2' /> {loading ? 'Processing...' : 'Complete Order'} 
-                        </button>
-                    </div>
-            </form>
+                </form>
+            </div>
         </div>
-
-    </div>
-  )
+    )
 }
 
 const Input = ({label, name, type = 'text', value, onChange}) => (
