@@ -65,11 +65,10 @@ export const CartProvider = ({ children }) => {
     if (!token) return;
 
 axios
-  .get(`${process.env.REACT_APP_API_URL}/api/cart`, {
+  .get(`${import.meta.env.VITE_API_URL}/api/cart`, {
     withCredentials: true,
     headers: { Authorization: `Bearer ${token}` },
   })
-
       .then((res) => dispatch({ type: "HYDRATE_CART", payload: res.data }))
       .catch((err) => {
         if (err.response?.status !== 401) console.error("Error fetching cart:", err);
@@ -81,11 +80,10 @@ axios
     try {
       const token = localStorage.getItem("authToken");
 const res = await axios.post(
-  `${process.env.REACT_APP_API_URL}/api/cart`,
+  `${import.meta.env.VITE_API_URL}/api/cart`,
   { itemId: item._id, quantity: qty },
   { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
 );
-
       dispatch({ type: "ADD_ITEM", payload: res.data });
     } catch (error) {
       console.error("Add to cart failed:", error);
@@ -96,11 +94,10 @@ const res = await axios.post(
   const removeFromCart = useCallback(async (_id) => {
     try {
       const token = localStorage.getItem("authToken");
-await axios.delete(`${process.env.REACT_APP_API_URL}/api/cart/${_id}`, {
+await axios.delete(`${import.meta.env.VITE_API_URL}/api/cart/${_id}`, {
   withCredentials: true,
   headers: { Authorization: `Bearer ${token}` },
 });
-
       dispatch({ type: "REMOVE_ITEM", payload: _id });
     } catch (error) {
       console.error("Remove from cart failed:", error);
@@ -112,7 +109,7 @@ await axios.delete(`${process.env.REACT_APP_API_URL}/api/cart/${_id}`, {
     try {
       const token = localStorage.getItem("authToken");
 const res = await axios.put(
-  `${process.env.REACT_APP_API_URL}/api/cart/${_id}`,
+  `${import.meta.env.VITE_API_URL}/api/cart/${_id}`,
   { quantity: qty },
   { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
 );
@@ -128,11 +125,10 @@ const res = await axios.put(
     try {
       const token = localStorage.getItem("authToken");
 await axios.post(
-  `${process.env.REACT_APP_API_URL}/api/cart/clear`,
+  `${import.meta.env.VITE_API_URL}/api/cart/clear`,
   {},
   { withCredentials: true, headers: { Authorization: `Bearer ${token}` } }
 );
-
       dispatch({ type: "CLEAR_CART" });
     } catch (error) {
       console.error("Clear cart failed:", error);
